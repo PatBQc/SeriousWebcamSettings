@@ -1,0 +1,41 @@
+﻿<Window x:Class="SeriousWebcamSettings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SeriousWebcamSettings"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        Title="MainWindow" Height="600" Width="1024">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="350" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "50" />
+            <RowDefinition Height = "*" />
+            <RowDefinition Height = "30" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
+            <Button x:Name="_btnChooseDevice" Click="Button_Click" Margin="10">Choose Device</Button>
+            <Button x:Name="_btnShowDisplayProperties" Click="_btnShowDisplayProperties_Click" Margin="10">Choose Display Properties</Button>
+        </StackPanel>
+
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="10">
+            <Image x:Name="_imgFrame" Stretch="Uniform" Source="Assets/no-camera-sign.png"/>
+        </Border>
+
+
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="10">
+            <StackPanel>
+                <StackPanel x:Name="_settingsControl" />
+                <Label x:Name="_lblUnsupportedSettingsHeader" FontWeight="ExtraBlack" Visibility="Collapsed">Unsupported:</Label>
+                <Label x:Name="_lblUnsupportedSettings" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

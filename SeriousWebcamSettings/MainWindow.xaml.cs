@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SeriousWebcamSettings
 {
@@ -29,6 +31,7 @@ namespace SeriousWebcamSettings
         private NewFrameEventHandler _newFrameHandler = null;
         List<CameraVideoSettingEntity> _currentCameraSettings = null;
         private bool _closing = false;
+        private DispatcherTimer _autoRefreshTimer = null;
 
         public MainWindow()
         {
@@ -102,6 +105,26 @@ namespace SeriousWebcamSettings
             {
                 _webcam.DisplayPropertyPage(new WindowInteropHelper(this).Handle);
             }
+        }
+
+        private void _btnForceRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            if (_webcam == null || _currentCameraSettings == null)
+            {
+                return;
+            }
+
+            SetCameraValues();
+        }
+
+        private void _chkAutoRefresh_Checked(object sender, RoutedEventArgs e)
+        {
+            StartAutoRefresh();
+        }
+
+        private void _chkAutoRefresh_Unchecked(object sender, RoutedEventArgs e)
+        {
+            StopAutoRefresh();
         }
 
         private void SetCameraValues()
@@ -237,5 +260,28 @@ namespace SeriousWebcamSettings
             return returnObject;
         }
 
+        private void StartAutoRefresh()
+        {
+            if (_autoRefreshTimer == null)
+            {
+                _autoRefreshTimer = new DispatcherTimer();
+                _autoRefreshTimer.Interval = TimeSpan.FromSeconds(10);
+                _autoRefreshTimer.Tick += AutoRefreshTimerTick;
+            }
+
+            _autoRefreshTimer.Start();
+        }
+
+        private void AutoRefreshTimerTick(object? sender, EventArgs e)
+        {
+            _lblRefreshing.Visibility = Visibility.Visible;
+            SetCameraValues();
+            _lblRefreshing.Visibility = Visibility.Hidden;
+        }
+
+        private void StopAutoRefresh()
+        {
+            _autoRefreshTimer?.Stop();
+        }
     }
 }

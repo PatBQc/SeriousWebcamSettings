@@ -23,6 +23,9 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
             <Button x:Name="_btnChooseDevice" Click="Button_Click" Margin="10">Choose Device</Button>
             <Button x:Name="_btnShowDisplayProperties" Click="_btnShowDisplayProperties_Click" Margin="10">Choose Display Properties</Button>
+            <Button x:Name="_btnForceRefresh" Click="_btnForceRefresh_Click" Margin="10">Force Refresh of settings (applies them all)</Button>
+            <CheckBox x:Name="_chkAutoRefresh" Checked="_chkAutoRefresh_Checked" Unchecked="_chkAutoRefresh_Unchecked" Margin="10" VerticalContentAlignment="Center">Auto Refresh every 10 seconds</CheckBox>
+            <Label x:Name="_lblRefreshing" Visibility="Hidden" Margin="10" VerticalContentAlignment="Center">Refreshing...</Label>
         </StackPanel>
 
         <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="10">

@@ -1,0 +1,1 @@
+tar.exe -a -c -f SeriousWebcamSettings.zip *.dll SeriousWebcamSettings.exe SeriousWebcamSettings.runtimeconfig.json

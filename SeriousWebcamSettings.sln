@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeriousWebcamSettings", "SeriousWebcamSettings\SeriousWebcamSettings.csproj", "{F3D737A3-42DF-4FB8-AF90-CBC60AFA8BCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeriousWebcamSettings", "SeriousWebcamSettings\SeriousWebcamSettings.csproj", "{F3D737A3-42DF-4FB8-AF90-CBC60AFA8BCF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Video.DirectShow", "LitePlacer-retired-experiment-master\AForge\Video.DirectShow\Video.DirectShow.csproj", "{26CD2CE7-FF63-4669-83B0-7D9C8F3408EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installer", "Installer", "{7E0F3B43-4D95-4F1E-9CEB-3E54DFAD58A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

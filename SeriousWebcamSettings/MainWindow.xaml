@@ -27,7 +27,6 @@
             <Button x:Name="_btnLoad" Click="_btnLoad_Click" Margin="10" Padding="5,2" IsEnabled="False">Load settings</Button>
             <Button x:Name="_btnForceRefresh" Click="_btnForceRefresh_Click" Margin="10" Padding="5,2" IsEnabled="False">Force Refresh of settings (applies them all)</Button>
             <CheckBox x:Name="_chkAutoRefresh" Checked="_chkAutoRefresh_Checked" Unchecked="_chkAutoRefresh_Unchecked" Margin="10" Padding="5,2" VerticalContentAlignment="Center" IsEnabled="False">Auto Refresh every second</CheckBox>
-            <Label x:Name="_lblRefreshing" Visibility="Hidden" Margin="10" Padding="5,2" VerticalContentAlignment="Center">Refreshing...</Label>
         </StackPanel>
 
         <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="10">

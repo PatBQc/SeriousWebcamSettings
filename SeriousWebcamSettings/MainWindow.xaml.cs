@@ -32,7 +32,7 @@ namespace SeriousWebcamSettings
         private NewFrameEventHandler _newFrameHandler = null;
         List<CameraVideoSettingEntity> _currentCameraSettings = null;
         private bool _closing = false;
-        private DispatcherTimer _autoRefreshTimer = null;
+        private Timer _autoRefreshTimer = null;
         private string _videoDevice = string.Empty;
 
         public MainWindow()
@@ -277,24 +277,22 @@ namespace SeriousWebcamSettings
         {
             if (_autoRefreshTimer == null)
             {
-                _autoRefreshTimer = new DispatcherTimer();
-                _autoRefreshTimer.Interval = TimeSpan.FromSeconds(1);
-                _autoRefreshTimer.Tick += AutoRefreshTimerTick;
+                _autoRefreshTimer = new Timer(AutoRefreshTimerTick, null, 1000, 1000);
             }
-
-            _autoRefreshTimer.Start();
         }
 
-        private void AutoRefreshTimerTick(object? sender, EventArgs e)
+        private void AutoRefreshTimerTick(object? state)
         {
-            _lblRefreshing.Visibility = Visibility.Visible;
             SetCameraValues();
-            _lblRefreshing.Visibility = Visibility.Hidden;
         }
 
         private void StopAutoRefresh()
         {
-            _autoRefreshTimer?.Stop();
+            if (_autoRefreshTimer != null)
+            {
+                _autoRefreshTimer.Dispose();
+                _autoRefreshTimer = null;
+            }
         }
 
         private void _btnSave_Click(object sender, RoutedEventArgs e)
@@ -348,14 +346,14 @@ namespace SeriousWebcamSettings
                 // Save settings
                 foreach (string line in File.ReadAllLines(dlg.FileName))
                 {
-                    if(string.IsNullOrEmpty(line)) 
+                    if (string.IsNullOrEmpty(line))
                         continue;
-                    
+
                     var config = line.Split("=");
                     configs[config[0].Trim()] = config[1].Trim();
                 }
 
-                foreach(var setting in _currentCameraSettings) 
+                foreach (var setting in _currentCameraSettings)
                 {
                     var settingName = setting.Setting.ToString();
                     if (configs.ContainsKey(settingName))
@@ -371,7 +369,7 @@ namespace SeriousWebcamSettings
                             setting.RaisePropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs("Value"));
                         }
 
-                        
+
                     }
                 }
 

@@ -22,7 +22,8 @@ Then the Web Cam you want to administer
 
 And there you have it!
 
-![image](https://user-images.githubusercontent.com/12274241/192282110-28f7b888-effc-4fb3-ade0-6317ed64806c.png)
+![image](https://github.com/PatBQc/SeriousWebcamSettings/assets/12274241/d2c7c25c-f733-4eb1-bef5-ee19673ae7ea)
+
 
 Your Webcam image on your left and the settings on your right.
 
@@ -47,7 +48,8 @@ The settings are hardcoded as follow
 
 For exemple, changing exposure with the scroller, you can see the image got brighter and the **"Current value"** went from **-6** to **-5**
 
-![image](https://user-images.githubusercontent.com/12274241/192282343-91c2f2dc-d41f-4ac8-b1a7-8aa0efc20984.png)
+![image](https://github.com/PatBQc/SeriousWebcamSettings/assets/12274241/2570247f-e249-4ebb-9a8c-a894d6435540)
+
 
 ## Known issues
 - The video stream cannot be shared between applications.  This means that you can see it inside the app or give it to Teams, Zoom, ...  I usually start the application that will require the Webcam (OBS, Teams, Zoom, ...) and after that start this **SeriousWebcamSettings**.  Once I change something in this app, you see realtime your modification in the other app.

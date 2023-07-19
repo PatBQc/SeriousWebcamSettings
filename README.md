@@ -56,10 +56,10 @@ For exemple, changing exposure with the scroller, you can see the image got brig
 - If you want to control more than One Webcam at a time, you simply need to start the application twice (if pinned in the Taskbar, Shift+Click the shortcut to launch a new instance).
 
 ## Next steps
-- [ ] Would love to have a simple save / load settings for the various camera.  Lights changes by the time of day and while working from various office, have my presets already available.
+- [x] Would love to have a simple save / load settings for the various camera.  Lights changes by the time of day and while working from various office, have my presets already available.
 - [x] Have the opportunity to force syncing the settings back on regular intervals.  Sometime a webcam settings are reverted to their default value by Windows or the consuming application.  So once you are happy with the settings, forcing to sync back every few seconds would make sure the streams never stays in a faulted state.
 - [ ] Implement command line hooks so it can be scripted or pinned in the taskbar for a particular configuration.
-- [ ] Have the stream be *shareable* between both this application and the rest of the apps consuming the stream.
+- [ ] Have the stream be *shareable* between both this application and the rest of the apps consuming the stream.  Does not seem to be feasible as it is "By Design" in Windows API.
 - [ ] Change the Webcam selection input method from the built-in window provided by AForge.Video.DirectShow to have a simple dropdown (ComboBox or something similar) in the MainWindow.
 - [ ] Query the available Webcam settings from an API call instead of the hardcoded enum.
 

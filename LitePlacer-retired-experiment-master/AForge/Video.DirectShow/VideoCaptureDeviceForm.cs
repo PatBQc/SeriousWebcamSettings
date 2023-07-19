@@ -261,17 +261,28 @@ namespace AForge.Video.DirectShow
                 // collect video capabilities
                 VideoCapabilities[] videoCapabilities = videoDevice.VideoCapabilities;
                 int videoResolutionIndex = 0;
+                int bigestPixelCount = 0;
 
                 foreach ( VideoCapabilities capabilty in videoCapabilities )
                 {
                     string item = string.Format(
                         "{0} x {1}", capabilty.FrameSize.Width, capabilty.FrameSize.Height );
 
+                    int pixelCount = capabilty.FrameSize.Width * capabilty.FrameSize.Height;
+
                     if ( !videoResolutionsCombo.Items.Contains( item ) )
                     {
-                        if ( captureSize == capabilty.FrameSize )
+                        if (captureSize == capabilty.FrameSize)
                         {
                             videoResolutionIndex = videoResolutionsCombo.Items.Count;
+                        }
+                        else
+                        {
+                            if (pixelCount > bigestPixelCount)
+                            { 
+                                videoResolutionIndex = videoResolutionsCombo.Items.Count;
+                                bigestPixelCount = pixelCount;
+                            }
                         }
 
                         videoResolutionsCombo.Items.Add( item );

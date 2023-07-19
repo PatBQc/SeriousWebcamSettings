@@ -265,7 +265,7 @@ namespace SeriousWebcamSettings
             if (_autoRefreshTimer == null)
             {
                 _autoRefreshTimer = new DispatcherTimer();
-                _autoRefreshTimer.Interval = TimeSpan.FromSeconds(10);
+                _autoRefreshTimer.Interval = TimeSpan.FromSeconds(1);
                 _autoRefreshTimer.Tick += AutoRefreshTimerTick;
             }
 

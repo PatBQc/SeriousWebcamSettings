@@ -24,7 +24,7 @@
             <Button x:Name="_btnChooseDevice" Click="Button_Click" Margin="10" Padding="5,2">Choose Device</Button>
             <Button x:Name="_btnShowDisplayProperties" Click="_btnShowDisplayProperties_Click" Margin="10" Padding="5,2">Choose Display Properties</Button>
             <Button x:Name="_btnForceRefresh" Click="_btnForceRefresh_Click" Margin="10" Padding="5,2">Force Refresh of settings (applies them all)</Button>
-            <CheckBox x:Name="_chkAutoRefresh" Checked="_chkAutoRefresh_Checked" Unchecked="_chkAutoRefresh_Unchecked" Margin="10" Padding="5,2" VerticalContentAlignment="Center">Auto Refresh every 10 seconds</CheckBox>
+            <CheckBox x:Name="_chkAutoRefresh" Checked="_chkAutoRefresh_Checked" Unchecked="_chkAutoRefresh_Unchecked" Margin="10" Padding="5,2" VerticalContentAlignment="Center">Auto Refresh every second</CheckBox>
             <Label x:Name="_lblRefreshing" Visibility="Hidden" Margin="10" Padding="5,2" VerticalContentAlignment="Center">Refreshing...</Label>
         </StackPanel>
 

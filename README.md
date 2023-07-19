@@ -11,7 +11,8 @@ So we passed from this hidden in Windows API
 
 To this !
 
-![image](https://user-images.githubusercontent.com/12274241/192281799-5d6be3de-5cdb-4e2c-94ac-ec02ba4d8dad.png)
+![image](https://github.com/PatBQc/SeriousWebcamSettings/assets/12274241/8919cc23-1ff5-4f2a-88e9-3bf16050b8d2)
+
 
 To start, just click **"Choose Device"**.
 

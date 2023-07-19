@@ -61,6 +61,8 @@ namespace SeriousWebcamSettings
                 InitializeCameraSettings();
 
                 _webcam.Start();
+
+                _chkAutoRefresh.IsChecked = true;
             }
         }
 

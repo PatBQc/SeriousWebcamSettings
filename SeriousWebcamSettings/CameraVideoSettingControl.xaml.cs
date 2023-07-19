@@ -30,7 +30,13 @@ namespace SeriousWebcamSettings
             InitializeComponent();
         }
 
-        public CameraVideoSettingControl(CameraVideoSettingEntity setting) : this() => _setting = setting;
+        public CameraVideoSettingControl(CameraVideoSettingEntity setting) : this()
+        {
+            _setting = setting;
+            _setting.PropertyChanged += OnSettingPropertyChanged;
+        }
+
+
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -47,6 +53,15 @@ namespace SeriousWebcamSettings
             _slider.ValueChanged += _slider_ValueChanged;
 
             _finishedInit = true;
+        }
+
+        private void OnSettingPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch(e.PropertyName)
+            {
+                case "IsAuto": _chkAuto.IsChecked = _setting.IsAuto; break;
+                case "Value": _slider.Value = _setting.Value; break;
+            }
         }
 
         private void _slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

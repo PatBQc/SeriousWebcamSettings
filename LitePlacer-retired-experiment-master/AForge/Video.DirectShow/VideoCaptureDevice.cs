@@ -82,6 +82,8 @@ namespace AForge.Video.DirectShow
         private bool needToDisplayCrossBarPropertyPage = false;
         private IntPtr parentWindowForPropertyPage = IntPtr.Zero;
 
+        private string name = string.Empty;
+
         // video capture source object
         private object sourceObject = null;
 
@@ -276,6 +278,19 @@ namespace AForge.Video.DirectShow
                 isCrossbarAvailable = null;
             }
         }
+
+        /// <summary>
+        /// The camera display name
+        /// </summary>
+        ///
+        /// <remarks>The camera display name as showned in the UI.</remarks>
+        ///
+        public virtual string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
 
         /// <summary>
         /// Received frames count.

@@ -2,6 +2,7 @@
 using AForge.Video.DirectShow;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace SeriousWebcamSettings
         List<CameraVideoSettingEntity> _currentCameraSettings = null;
         private bool _closing = false;
         private DispatcherTimer _autoRefreshTimer = null;
+        private string _videoDevice = string.Empty;
 
         public MainWindow()
         {
@@ -63,6 +65,15 @@ namespace SeriousWebcamSettings
                 _webcam.Start();
 
                 _chkAutoRefresh.IsChecked = true;
+
+                _videoDevice = dlg.VideoDevice.Name;
+
+                _btnChooseDevice.IsEnabled = true;
+                _btnShowDisplayProperties.IsEnabled = true;
+                _btnSave.IsEnabled = true;
+                _btnLoad.IsEnabled = true;
+                _btnForceRefresh.IsEnabled = true;
+                _chkAutoRefresh.IsEnabled = true;
             }
         }
 
@@ -284,6 +295,89 @@ namespace SeriousWebcamSettings
         private void StopAutoRefresh()
         {
             _autoRefreshTimer?.Stop();
+        }
+
+        private void _btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (_webcam == null)
+            {
+                return;
+            }
+
+            var dlg = new System.Windows.Forms.SaveFileDialog()
+            {
+                FileName = _videoDevice + ".sws", // Default file name
+                DefaultExt = ".sws", // Default file extension
+                Filter = "Serious Webcam Settings|*.sws|All files|*.*", // Filter files by extension
+                InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory
+            };
+
+            // Show save file dialog box
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                // Save settings
+                var configs = new StringBuilder();
+                foreach (var setting in _currentCameraSettings)
+                {
+                    configs.AppendLine(setting.Setting.ToString() + " = " + (setting.IsAuto ? "Auto" : setting.Value.ToString()));
+                }
+
+                File.WriteAllText(dlg.FileName, configs.ToString());
+            }
+        }
+
+        private void _btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            if (_webcam == null)
+            {
+                return;
+            }
+
+            var dlg = new System.Windows.Forms.OpenFileDialog()
+            {
+                FileName = _videoDevice + ".sws", // Default file name
+                DefaultExt = ".sws", // Default file extension
+                Filter = "Serious Webcam Settings|*.sws|All files|*.*", // Filter files by extension
+                InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory
+            };
+
+            // Show save file dialog box
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var configs = new Dictionary<string, string>();
+                // Save settings
+                foreach (string line in File.ReadAllLines(dlg.FileName))
+                {
+                    if(string.IsNullOrEmpty(line)) 
+                        continue;
+                    
+                    var config = line.Split("=");
+                    configs[config[0].Trim()] = config[1].Trim();
+                }
+
+                foreach(var setting in _currentCameraSettings) 
+                {
+                    var settingName = setting.Setting.ToString();
+                    if (configs.ContainsKey(settingName))
+                    {
+                        if (configs[settingName] == "Auto")
+                        {
+                            setting.ControlValue = CameraControlFlags.Auto;
+                            setting.RaisePropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs("IsAuto"));
+                        }
+                        else
+                        {
+                            setting.Value = int.Parse(configs[settingName]);
+                            setting.RaisePropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs("Value"));
+                        }
+
+                        
+                    }
+                }
+
+                SetCameraValues();
+            }
+
         }
     }
 }

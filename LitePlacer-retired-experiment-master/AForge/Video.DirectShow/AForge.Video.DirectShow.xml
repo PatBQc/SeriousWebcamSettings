@@ -3687,6 +3687,14 @@
              <remarks>Video source is represented by moniker string of video capture device.</remarks>
             
         </member>
+        <member name="P:AForge.Video.DirectShow.VideoCaptureDevice.Name">
+             <summary>
+             The camera display name
+             </summary>
+            
+             <remarks>The camera display name as showned in the UI.</remarks>
+            
+        </member>
         <member name="P:AForge.Video.DirectShow.VideoCaptureDevice.FramesReceived">
              <summary>
              Received frames count.

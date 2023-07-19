@@ -240,6 +240,7 @@ namespace AForge.Video.DirectShow
             if ( videoDevices.Count != 0 )
             {
                 videoDevice = new VideoCaptureDevice( videoDevices[devicesCombo.SelectedIndex].MonikerString );
+                videoDevice.Name = devicesCombo.SelectedItem.ToString();
                 EnumeratedSupportedFrameSizes( videoDevice );
             }
         }

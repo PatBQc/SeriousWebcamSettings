@@ -277,7 +277,7 @@ namespace SeriousWebcamSettings
         {
             if (_autoRefreshTimer == null)
             {
-                _autoRefreshTimer = new Timer(AutoRefreshTimerTick, null, 1000, 1000);
+                _autoRefreshTimer = new Timer(AutoRefreshTimerTick, null, 5000, 5000);
             }
         }
 
@@ -290,6 +290,7 @@ namespace SeriousWebcamSettings
         {
             if (_autoRefreshTimer != null)
             {
+                _autoRefreshTimer.Change(Timeout.Infinite, Timeout.Infinite);
                 _autoRefreshTimer.Dispose();
                 _autoRefreshTimer = null;
             }

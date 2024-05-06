@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
-            <Button x:Name="_btnChooseDevice" Click="Button_Click" Margin="10" Padding="5,2">Choose Device</Button>
+            <Button x:Name="_btnChooseDevice" Click="_btnChooseDevice_Click" Margin="10" Padding="5,2">Choose Device</Button>
             <Button x:Name="_btnShowDisplayProperties" Click="_btnShowDisplayProperties_Click" Margin="10" Padding="5,2" IsEnabled="False">Choose Display Properties</Button>
             <Button x:Name="_btnSave" Click="_btnSave_Click" Margin="10" Padding="5,2" IsEnabled="False">Save settings</Button>
             <Button x:Name="_btnLoad" Click="_btnLoad_Click" Margin="10" Padding="5,2" IsEnabled="False">Load settings</Button>

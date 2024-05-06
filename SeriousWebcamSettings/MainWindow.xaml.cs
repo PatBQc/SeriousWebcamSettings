@@ -44,7 +44,7 @@ namespace SeriousWebcamSettings
         {
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void _btnChooseDevice_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new AForge.Video.DirectShow.VideoCaptureDeviceForm();
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -67,6 +67,12 @@ namespace SeriousWebcamSettings
                 _chkAutoRefresh.IsChecked = true;
 
                 _videoDevice = dlg.VideoDevice.Name;
+
+                var settingFilename = System.IO.Path.Join(System.AppDomain.CurrentDomain.BaseDirectory, _videoDevice.Trim() + ".sws");
+                if(File.Exists(settingFilename))
+                {
+                    LoadSettingsFromFilename(settingFilename);
+                }
 
                 _btnChooseDevice.IsEnabled = true;
                 _btnShowDisplayProperties.IsEnabled = true;
@@ -343,40 +349,47 @@ namespace SeriousWebcamSettings
             // Show save file dialog box
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                var configs = new Dictionary<string, string>();
-                // Save settings
-                foreach (string line in File.ReadAllLines(dlg.FileName))
-                {
-                    if (string.IsNullOrEmpty(line))
-                        continue;
+                var settingFilename = dlg.FileName;
 
-                    var config = line.Split("=");
-                    configs[config[0].Trim()] = config[1].Trim();
-                }
-
-                foreach (var setting in _currentCameraSettings)
-                {
-                    var settingName = setting.Setting.ToString();
-                    if (configs.ContainsKey(settingName))
-                    {
-                        if (configs[settingName] == "Auto")
-                        {
-                            setting.ControlValue = CameraControlFlags.Auto;
-                            setting.RaisePropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs("IsAuto"));
-                        }
-                        else
-                        {
-                            setting.Value = int.Parse(configs[settingName]);
-                            setting.RaisePropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs("Value"));
-                        }
-
-
-                    }
-                }
-
-                SetCameraValues();
+                LoadSettingsFromFilename(settingFilename);
             }
 
+        }
+
+        private void LoadSettingsFromFilename(string settingFilename)
+        {
+            var configs = new Dictionary<string, string>();
+            // Save settings
+            foreach (string line in File.ReadAllLines(settingFilename))
+            {
+                if (string.IsNullOrEmpty(line))
+                    continue;
+
+                var config = line.Split("=");
+                configs[config[0].Trim()] = config[1].Trim();
+            }
+
+            foreach (var setting in _currentCameraSettings)
+            {
+                var settingName = setting.Setting.ToString();
+                if (configs.ContainsKey(settingName))
+                {
+                    if (configs[settingName] == "Auto")
+                    {
+                        setting.ControlValue = CameraControlFlags.Auto;
+                        setting.RaisePropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs("IsAuto"));
+                    }
+                    else
+                    {
+                        setting.Value = int.Parse(configs[settingName]);
+                        setting.RaisePropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs("Value"));
+                    }
+
+
+                }
+            }
+
+            SetCameraValues();
         }
     }
 }

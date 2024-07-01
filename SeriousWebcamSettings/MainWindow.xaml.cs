@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -20,6 +21,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Timer = System.Threading.Timer;
+using Path = System.IO.Path;
 
 namespace SeriousWebcamSettings
 {
@@ -34,15 +37,35 @@ namespace SeriousWebcamSettings
         private bool _closing = false;
         private Timer _autoRefreshTimer = null;
         private string _videoDevice = string.Empty;
+        private NotifyIcon _trayIcon;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            _trayIcon = new NotifyIcon();
+            _trayIcon.Icon = new Icon("MainWindowIcon.ico");
+            _trayIcon.Text = "SeriousWebcamSettings";
+            _trayIcon.Visible = true;
+            _trayIcon.DoubleClick +=
+                delegate (object sender, EventArgs args)
+                {
+                    Show();
+                    WindowState = WindowState.Normal;
+                };
+        }
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            if (WindowState == WindowState.Minimized)
+                Hide();
+
+            base.OnStateChanged(e);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var configs = Directory.GetFiles(".", "*.sws").Select(System.IO.Path.GetFileNameWithoutExtension).ToArray();
+            var configs = Directory.GetFiles(".", "*.sws").Select(Path.GetFileNameWithoutExtension).ToArray();
             if (configs.Length == 1)
             {
                 var videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
@@ -52,6 +75,7 @@ namespace SeriousWebcamSettings
                     {
                         if (device.Name == configs[0])
                         {
+                            Hide();
                             SetVideoCaptureDevice(new VideoCaptureDevice(device.MonikerString));
                         }
                     }

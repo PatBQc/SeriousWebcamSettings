@@ -42,6 +42,21 @@ namespace SeriousWebcamSettings
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            var configs = Directory.GetFiles(".", "*.sws").Select(System.IO.Path.GetFileNameWithoutExtension).ToArray();
+            if (configs.Length == 1)
+            {
+                var videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+                if (videoDevices.Count > 0)
+                {
+                    foreach (FilterInfo device in videoDevices)
+                    {
+                        if (device.Name == configs[0])
+                        {
+                            SetVideoCaptureDevice(new VideoCaptureDevice(device.MonikerString));
+                        }
+                    }
+                }                               
+            }            
         }
 
         private void _btnChooseDevice_Click(object sender, RoutedEventArgs e)
@@ -49,38 +64,43 @@ namespace SeriousWebcamSettings
             var dlg = new AForge.Video.DirectShow.VideoCaptureDeviceForm();
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (_newFrameHandler != null)
-                {
-                    _webcam.NewFrame -= _newFrameHandler;
-                    _webcam.SignalToStop();
-                }
-
-                _newFrameHandler = new NewFrameEventHandler(FinalVideo_NewFrame);
-
-                _webcam = dlg.VideoDevice;
-                _webcam.NewFrame += _newFrameHandler;
-
-                InitializeCameraSettings();
-
-                _webcam.Start();
-
-                _chkAutoRefresh.IsChecked = true;
-
-                _videoDevice = dlg.VideoDevice.Name;
-
-                var settingFilename = System.IO.Path.Join(System.AppDomain.CurrentDomain.BaseDirectory, _videoDevice.Trim() + ".sws");
-                if(File.Exists(settingFilename))
-                {
-                    LoadSettingsFromFilename(settingFilename);
-                }
-
-                _btnChooseDevice.IsEnabled = true;
-                _btnShowDisplayProperties.IsEnabled = true;
-                _btnSave.IsEnabled = true;
-                _btnLoad.IsEnabled = true;
-                _btnForceRefresh.IsEnabled = true;
-                _chkAutoRefresh.IsEnabled = true;
+                SetVideoCaptureDevice(dlg.VideoDevice);
             }
+        }
+
+        private void SetVideoCaptureDevice(VideoCaptureDevice device)
+        {
+            if (_newFrameHandler != null)
+            {
+                _webcam.NewFrame -= _newFrameHandler;
+                _webcam.SignalToStop();
+            }
+
+            _newFrameHandler = new NewFrameEventHandler(FinalVideo_NewFrame);
+
+            _webcam = device;
+            _webcam.NewFrame += _newFrameHandler;
+
+            InitializeCameraSettings();
+
+            _webcam.Start();
+
+            _chkAutoRefresh.IsChecked = true;
+
+            _videoDevice = device.Name;
+
+            var settingFilename = System.IO.Path.Join(System.AppDomain.CurrentDomain.BaseDirectory, _videoDevice.Trim() + ".sws");
+            if (File.Exists(settingFilename))
+            {
+                LoadSettingsFromFilename(settingFilename);
+            }
+
+            _btnChooseDevice.IsEnabled = true;
+            _btnShowDisplayProperties.IsEnabled = true;
+            _btnSave.IsEnabled = true;
+            _btnLoad.IsEnabled = true;
+            _btnForceRefresh.IsEnabled = true;
+            _chkAutoRefresh.IsEnabled = true;
         }
 
         private void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs)

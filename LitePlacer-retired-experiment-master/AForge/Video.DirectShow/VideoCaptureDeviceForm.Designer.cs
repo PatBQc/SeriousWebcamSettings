@@ -178,7 +178,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "VideoCaptureDeviceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Open local  video capture device";
+            this.Text = "Open local video capture device";
             this.Load += new System.EventHandler( this.VideoCaptureDeviceForm_Load );
             this.groupBox1.ResumeLayout( false );
             this.groupBox1.PerformLayout( );

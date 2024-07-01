@@ -77,7 +77,7 @@ namespace SeriousWebcamSettings
 
         private void _btnChooseDevice_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new AForge.Video.DirectShow.VideoCaptureDeviceForm();
+            var dlg = new VideoCaptureDeviceForm();
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SetVideoCaptureDevice(dlg.VideoDevice);
@@ -86,26 +86,22 @@ namespace SeriousWebcamSettings
 
         private void SetVideoCaptureDevice(VideoCaptureDevice device)
         {
-            if (_newFrameHandler != null)
-            {
-                _webcam.NewFrame -= _newFrameHandler;
-                _webcam.SignalToStop();
-            }
+            StopPreview();
 
             _newFrameHandler = new NewFrameEventHandler(FinalVideo_NewFrame);
-
             _webcam = device;
-            _webcam.NewFrame += _newFrameHandler;
 
             InitializeCameraSettings();
 
-            _webcam.Start();
-
             _chkAutoRefresh.IsChecked = true;
+            if (_chkShowPreview.IsChecked == true)
+            {
+                StartPreview();
+            }
 
             _videoDevice = device.Name;
 
-            var settingFilename = System.IO.Path.Join(System.AppDomain.CurrentDomain.BaseDirectory, _videoDevice.Trim() + ".sws");
+            var settingFilename = Path.Join(AppDomain.CurrentDomain.BaseDirectory, _videoDevice.Trim() + ".sws");
             if (File.Exists(settingFilename))
             {
                 LoadSettingsFromFilename(settingFilename);
@@ -117,6 +113,21 @@ namespace SeriousWebcamSettings
             _btnLoad.IsEnabled = true;
             _btnForceRefresh.IsEnabled = true;
             _chkAutoRefresh.IsEnabled = true;
+        }
+
+        private void StartPreview()
+        {
+            _webcam.NewFrame += _newFrameHandler;
+            _webcam.Start();
+        }
+
+        private void StopPreview()
+        {
+            if (_newFrameHandler != null)
+            {
+                _webcam.NewFrame -= _newFrameHandler;
+                _webcam.SignalToStop();
+            }
         }
 
         private void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs)
@@ -180,6 +191,16 @@ namespace SeriousWebcamSettings
         private void _chkAutoRefresh_Unchecked(object sender, RoutedEventArgs e)
         {
             StopAutoRefresh();
+        }
+
+        private void _chkShowPreview_Checked(object sender, RoutedEventArgs e)
+        {
+            StartPreview();
+        }
+
+        private void _chkShowPreview_Unchecked(object sender, RoutedEventArgs e)
+        {
+            StopPreview();
         }
 
         private void SetCameraValues()

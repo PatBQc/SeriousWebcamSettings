@@ -68,7 +68,9 @@ namespace SeriousWebcamSettings
                         if (device.Name == configs[0])
                         {
                             Hide();
-                            SetVideoCaptureDevice(new VideoCaptureDevice(device.MonikerString));
+                            var captureDevice = new VideoCaptureDevice(device.MonikerString);
+                            captureDevice.Name = device.Name;
+                            SetVideoCaptureDevice(captureDevice);
                         }
                     }
                 }                               
@@ -438,6 +440,7 @@ namespace SeriousWebcamSettings
                     }
                     else
                     {
+                        setting.ControlValue = CameraControlFlags.Manual;
                         setting.Value = int.Parse(configs[settingName]);
                         setting.RaisePropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs("Value"));
                     }

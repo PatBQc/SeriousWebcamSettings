@@ -1444,7 +1444,7 @@
             </summary>
             
             <param name="timeout">Duration of the time-out, in milliseconds, or INFINITE to specify an infinite time-out.</param>
-            <param name="filterState">ﾌariable that receives a member of the <b>FILTER_STATE</b> enumeration.</param>
+            <param name="filterState">Ìariable that receives a member of the <b>FILTER_STATE</b> enumeration.</param>
             
             <returns>Return's <b>HRESULT</b> error code.</returns>
             
@@ -2018,7 +2018,7 @@
         </member>
         <member name="M:AForge.Video.DirectShow.Internals.ISampleGrabberCB.BufferCB(System.Double,System.IntPtr,System.Int32)">
             <summary>
-            Callback method that receives a pointer to the sample buffer
+            Callback method that receives a pointer to the sample bufferþ
             </summary>
             
             <param name="sampleTime">Starting time of the sample, in seconds.</param>
@@ -2275,7 +2275,7 @@
         </member>
         <member name="M:AForge.Video.DirectShow.Internals.IVideoWindow.put_Owner(System.IntPtr)">
             <summary>
-            Specifies a parent window for the video window
+            Specifies a parent window for the video windowþ
             </summary>
             
             <param name="owner">Specifies a handle to the parent window.</param>
@@ -2285,7 +2285,7 @@
         </member>
         <member name="M:AForge.Video.DirectShow.Internals.IVideoWindow.get_Owner(System.IntPtr@)">
             <summary>
-            Retrieves the video window's parent window, if any
+            Retrieves the video window's parent window, if anyþ
             </summary>
             
             <param name="owner">Parent window's handle.</param>
@@ -2378,7 +2378,7 @@
         </member>
         <member name="M:AForge.Video.DirectShow.Internals.IVideoWindow.SetWindowPosition(System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            Sets the position of the video window
+            Sets the position of the video windowþ
             </summary>
             
             <param name="left">Specifies the x-coordinate, in pixels.</param>

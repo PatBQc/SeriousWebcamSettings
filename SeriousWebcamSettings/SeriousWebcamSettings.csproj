@@ -20,17 +20,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AForge.Video" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\no-camera-sign.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AForge.Video" Version="2.2.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\LitePlacer-retired-experiment-master\AForge\Video.DirectShow\Video.DirectShow.csproj" />
+    <ProjectReference Include="..\AForge\Video.DirectShow\Video.DirectShow.csproj" />
   </ItemGroup>
 
 </Project>

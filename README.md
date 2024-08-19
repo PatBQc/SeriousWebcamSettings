@@ -11,18 +11,20 @@ So we passed from this hidden in Windows API
 
 To this !
 
-![image](https://github.com/PatBQc/SeriousWebcamSettings/assets/12274241/8919cc23-1ff5-4f2a-88e9-3bf16050b8d2)
+![image](https://github.com/user-attachments/assets/66bdb695-dcf1-475b-ba1f-d67806e527b6)
+
 
 
 To start, just click **"Choose Device"**.
 
+![image](https://github.com/user-attachments/assets/14a9f258-a371-4e23-933a-4f606cb8ad50)
+
+
 Then the Web Cam you want to administer
 
-![image](https://user-images.githubusercontent.com/12274241/192281953-15cc59e6-1d94-4231-88e2-992014ca7870.png)
+![image](https://github.com/user-attachments/assets/156af4d7-bc7c-4078-836f-bc863330926e)
 
 And there you have it!
-
-![image](https://github.com/PatBQc/SeriousWebcamSettings/assets/12274241/d2c7c25c-f733-4eb1-bef5-ee19673ae7ea)
 
 
 Your Webcam image on your left and the settings on your right.
@@ -48,7 +50,7 @@ The settings are hardcoded as follow
 
 For exemple, changing exposure with the scroller, you can see the image got brighter and the **"Current value"** went from **-6** to **-5**
 
-![image](https://github.com/PatBQc/SeriousWebcamSettings/assets/12274241/2570247f-e249-4ebb-9a8c-a894d6435540)
+![image](https://github.com/user-attachments/assets/8fdcd34a-a928-4157-a191-33907374b57a)
 
 
 ## Known issues

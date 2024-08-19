@@ -35,9 +35,8 @@
             <Button x:Name="_btnSave" Click="_btnSave_Click" Margin="2" Padding="5,2" IsEnabled="False">💾 Save settings</Button>
             <Button x:Name="_btnLoad" Click="_btnLoad_Click" Margin="2" Padding="5,2" IsEnabled="False">📁 Load settings</Button>
             <Button x:Name="_btnForceRefresh" Click="_btnForceRefresh_Click" Margin="2" Padding="5,2" IsEnabled="False">🔄 Force Refresh of settings (applies them all)</Button>
-            <Button x:Name="_btnTogglePreview" Click="_btnTogglePreview_Click" Margin="2" Padding="5,2" IsEnabled="False">↔️Toggle Preview</Button>
+            <Button x:Name="_btnTogglePreview" Click="_btnTogglePreview_Click" Margin="2" Padding="5,2" IsEnabled="False">👀 Show Preview</Button>
             <CheckBox x:Name="_chkAutoRefresh" Checked="_chkAutoRefresh_Checked" Unchecked="_chkAutoRefresh_Unchecked" Margin="2" Padding="5,2" VerticalContentAlignment="Center" IsEnabled="False" FontSize="14">Auto Refresh</CheckBox>
-            <CheckBox x:Name="_chkShowPreview" Checked="_chkShowPreview_Checked" Unchecked="_chkShowPreview_Unchecked" Margin="2" Padding="5,2" VerticalContentAlignment="Center" IsEnabled="False" FontSize="14">Show Preview</CheckBox>
         </WrapPanel>
 
         <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="10">

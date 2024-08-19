@@ -31,8 +31,9 @@ namespace SeriousWebcamSettings
         private Timer _autoRefreshTimer = null;
         private string _videoDevice = string.Empty;
         private NotifyIcon _trayIcon;
-        private bool _isExpanded = true;
-        private bool _wasPreviewingBeforeCollapse = false;
+        private bool _isExpandedAndPreviewing = false;
+        private double _oldWidth;
+
 
         public MainWindow()
         {
@@ -60,6 +61,9 @@ namespace SeriousWebcamSettings
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            _oldWidth = Width;
+            Width = MinWidth;
+
             var configs = Directory.GetFiles(".", "*.sws").Select(Path.GetFileNameWithoutExtension).ToArray();
             if (configs.Length == 1)
             {
@@ -76,8 +80,8 @@ namespace SeriousWebcamSettings
                             SetVideoCaptureDevice(captureDevice);
                         }
                     }
-                }                               
-            }            
+                }
+            }
         }
 
         private void _btnChooseDevice_Click(object sender, RoutedEventArgs e)
@@ -97,9 +101,9 @@ namespace SeriousWebcamSettings
             _webcam = device;
 
             InitializeCameraSettings();
-            
+
             _chkAutoRefresh.IsChecked = true;
-            if (_chkShowPreview.IsChecked == true)
+            if (_isExpandedAndPreviewing)
             {
                 StartPreview();
             }
@@ -119,7 +123,6 @@ namespace SeriousWebcamSettings
             _btnForceRefresh.IsEnabled = true;
             _btnTogglePreview.IsEnabled = true;
             _chkAutoRefresh.IsEnabled = true;
-            _chkShowPreview.IsEnabled = true;
         }
 
         private void StartPreview()
@@ -191,28 +194,22 @@ namespace SeriousWebcamSettings
             SetCameraValues();
         }
 
-        private double _oldWidth;
-
         private void _btnTogglePreview_Click(object sender, RoutedEventArgs e)
         {
-            if (_isExpanded)
+            if (_isExpandedAndPreviewing)
             {
-                _wasPreviewingBeforeCollapse = _webcam.IsRunning;
-                _chkShowPreview.IsEnabled = false;
                 StopPreview();
+                _btnTogglePreview.Content = "👀 Show Preview";
                 _oldWidth = Width;
                 Width = MinWidth;
             }
             else
             {
-                if (_wasPreviewingBeforeCollapse)
-                {
-                    StartPreview();
-                }
-                _chkShowPreview.IsEnabled = true;
+                StartPreview();
+                _btnTogglePreview.Content = "🙈 Hide Preview";
                 Width = _oldWidth;
             }
-            _isExpanded = !_isExpanded;
+            _isExpandedAndPreviewing = !_isExpandedAndPreviewing;
         }
 
 
@@ -224,16 +221,6 @@ namespace SeriousWebcamSettings
         private void _chkAutoRefresh_Unchecked(object sender, RoutedEventArgs e)
         {
             StopAutoRefresh();
-        }
-
-        private void _chkShowPreview_Checked(object sender, RoutedEventArgs e)
-        {
-            StartPreview();
-        }
-
-        private void _chkShowPreview_Unchecked(object sender, RoutedEventArgs e)
-        {
-            StopPreview();
         }
 
         private void SetCameraValues()

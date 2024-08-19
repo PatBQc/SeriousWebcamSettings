@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Closing="Window_Closing"
-        Title="Serious Webcam Settings" Height="600" Width="1024">
+        Title="Serious Webcam Settings" Height="600" Width="1024" MinWidth="370">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -15,20 +15,21 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height = "50" />
+            <RowDefinition Height = "Auto" />
             <RowDefinition Height = "*" />
             <RowDefinition Height = "30" />
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
-            <Button x:Name="_btnChooseDevice" Click="_btnChooseDevice_Click" Margin="10" Padding="5,2">Choose Device</Button>
-            <Button x:Name="_btnShowDisplayProperties" Click="_btnShowDisplayProperties_Click" Margin="10" Padding="5,2" IsEnabled="False">Choose Display Properties</Button>
-            <Button x:Name="_btnSave" Click="_btnSave_Click" Margin="10" Padding="5,2" IsEnabled="False">Save settings</Button>
-            <Button x:Name="_btnLoad" Click="_btnLoad_Click" Margin="10" Padding="5,2" IsEnabled="False">Load settings</Button>
-            <Button x:Name="_btnForceRefresh" Click="_btnForceRefresh_Click" Margin="10" Padding="5,2" IsEnabled="False">Force Refresh of settings (applies them all)</Button>
-            <CheckBox x:Name="_chkAutoRefresh" Checked="_chkAutoRefresh_Checked" Unchecked="_chkAutoRefresh_Unchecked" Margin="10" Padding="5,2" VerticalContentAlignment="Center" IsEnabled="False">Auto Refresh</CheckBox>
-            <CheckBox x:Name="_chkShowPreview" Checked="_chkShowPreview_Checked" Unchecked="_chkShowPreview_Unchecked" Margin="10" Padding="5,2" VerticalContentAlignment="Center">Show Preview</CheckBox>
-        </StackPanel>
+        <WrapPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Margin="8">
+            <Button x:Name="_btnChooseDevice" Click="_btnChooseDevice_Click" Margin="2" Padding="5,2">🎥 Choose Device</Button>
+            <Button x:Name="_btnShowDisplayProperties" Click="_btnShowDisplayProperties_Click" Margin="2" Padding="5,2" IsEnabled="False">⚙️ Choose Display Properties</Button>
+            <Button x:Name="_btnSave" Click="_btnSave_Click" Margin="2" Padding="5,2" IsEnabled="False">💾 Save settings</Button>
+            <Button x:Name="_btnLoad" Click="_btnLoad_Click" Margin="2" Padding="5,2" IsEnabled="False">📁 Load settings</Button>
+            <Button x:Name="_btnForceRefresh" Click="_btnForceRefresh_Click" Margin="2" Padding="5,2" IsEnabled="False">🔄 Force Refresh of settings (applies them all)</Button>
+            <Button x:Name="_btnTogglePreview" Click="_btnTogglePreview_Click" Margin="2" Padding="5,2" IsEnabled="False">⇆ Toggle Preview</Button>
+            <CheckBox x:Name="_chkAutoRefresh" Checked="_chkAutoRefresh_Checked" Unchecked="_chkAutoRefresh_Unchecked" Margin="2" Padding="5,2" VerticalContentAlignment="Center" IsEnabled="False">Auto Refresh</CheckBox>
+            <CheckBox x:Name="_chkShowPreview" Checked="_chkShowPreview_Checked" Unchecked="_chkShowPreview_Unchecked" Margin="2" Padding="5,2" VerticalContentAlignment="Center" IsEnabled="False">Show Preview</CheckBox>
+        </WrapPanel>
 
         <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="10">
             <Image x:Name="_imgFrame" Stretch="Uniform" Source="Assets/no-camera-sign.png"/>

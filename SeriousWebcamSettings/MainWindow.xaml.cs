@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Timer = System.Threading.Timer;
 using Path = System.IO.Path;
+using System.Windows.Input;
 
 namespace SeriousWebcamSettings
 {
@@ -30,6 +31,8 @@ namespace SeriousWebcamSettings
         private Timer _autoRefreshTimer = null;
         private string _videoDevice = string.Empty;
         private NotifyIcon _trayIcon;
+        private bool _isExpanded = true;
+        private bool _wasPreviewingBeforeCollapse = false;
 
         public MainWindow()
         {
@@ -94,7 +97,7 @@ namespace SeriousWebcamSettings
             _webcam = device;
 
             InitializeCameraSettings();
-
+            
             _chkAutoRefresh.IsChecked = true;
             if (_chkShowPreview.IsChecked == true)
             {
@@ -114,7 +117,9 @@ namespace SeriousWebcamSettings
             _btnSave.IsEnabled = true;
             _btnLoad.IsEnabled = true;
             _btnForceRefresh.IsEnabled = true;
+            _btnTogglePreview.IsEnabled = true;
             _chkAutoRefresh.IsEnabled = true;
+            _chkShowPreview.IsEnabled = true;
         }
 
         private void StartPreview()
@@ -129,6 +134,7 @@ namespace SeriousWebcamSettings
             {
                 _webcam.NewFrame -= _newFrameHandler;
                 _webcam.SignalToStop();
+                _webcam.WaitForStop();
             }
         }
 
@@ -184,6 +190,31 @@ namespace SeriousWebcamSettings
 
             SetCameraValues();
         }
+
+        private double _oldWidth;
+
+        private void _btnTogglePreview_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isExpanded)
+            {
+                _wasPreviewingBeforeCollapse = _webcam.IsRunning;
+                _chkShowPreview.IsEnabled = false;
+                StopPreview();
+                _oldWidth = Width;
+                Width = MinWidth;
+            }
+            else
+            {
+                if (_wasPreviewingBeforeCollapse)
+                {
+                    StartPreview();
+                }
+                _chkShowPreview.IsEnabled = true;
+                Width = _oldWidth;
+            }
+            _isExpanded = !_isExpanded;
+        }
+
 
         private void _chkAutoRefresh_Checked(object sender, RoutedEventArgs e)
         {

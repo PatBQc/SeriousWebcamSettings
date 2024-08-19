@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="AForge.Video" Version="2.2.5" />
+    <PackageReference Include="Emoji.Wpf" Version="0.3.4" />
   </ItemGroup>
 
   <ItemGroup>
